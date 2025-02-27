@@ -1,4 +1,7 @@
-
+src/main/resources/application.properties
+.gitattributes
+mvnw
+mvnw.cmd
 
 HELP.md
 target/
@@ -33,14 +36,3 @@ build/
 
 ### VS Code ###
 .vscode/
-*.class
-*.jar
-*.war
-*.ear
-*.log
-.idea/
-.mvn/
-mvnw
-mvnw.cmd
-.gitattributes
-/src/main/resources/application.properties
