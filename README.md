@@ -125,3 +125,7 @@ logging.file.name=logs/app.log
 
 
 ---
+
+## Section-4 UC1
+- **Validation in DTORequest for validating the name**
+- **@Valid Annotation and @Pattern for name Field Validation**
