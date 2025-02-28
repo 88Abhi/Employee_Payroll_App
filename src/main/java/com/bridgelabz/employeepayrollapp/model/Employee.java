@@ -7,13 +7,13 @@ import jakarta.persistence.*;
 // Specifies the table name in the database
 @Table(name = "employees")
 public class Employee {
+
     // Primary Key
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    // Employee name and salary
+    // Employee name
     private double salary;
+    // Employee salary
     private String name;
 
     // Default Constructor for mapper
@@ -21,7 +21,8 @@ public class Employee {
     }
 
     // Parameterized Constructor to initialize the Employee details
-    public Employee(String name, double salary) {
+    public Employee(Long id, String name, double salary) {
+        this.id = id;
         this.name = name;
         this.salary = salary;
     }
