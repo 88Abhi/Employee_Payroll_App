@@ -3,6 +3,7 @@ package com.bridgelabz.employeepayrollapp.service;
 import com.bridgelabz.employeepayrollapp.dto.EmployeeRequestDTO;
 import com.bridgelabz.employeepayrollapp.dto.EmployeeResponseDTO;
 import com.bridgelabz.employeepayrollapp.model.Employee;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,9 @@ public class EmployeeService {
         log.debug("Searching for Employee By Id {}", id);
 
         // Find the employee with the given ID
-        Optional<Employee> employee = employeeList.stream().filter(emp -> emp.getId().equals(id)).findFirst();
+        Optional<Employee> employee = employeeList.stream()
+                .filter(emp -> emp.getId().equals(id))
+                .findFirst();
 
         // Return employee if found, otherwise return null
         return employee.orElse(null);
@@ -42,7 +45,7 @@ public class EmployeeService {
         return employeeList;
     }
 
-    public EmployeeResponseDTO updateEmployee(Long id, EmployeeRequestDTO updatedEmployee) {
+    public EmployeeResponseDTO updateEmployee(Long id, @Valid EmployeeRequestDTO updatedEmployee) {
         Employee updatedEmployeeObject = new Employee(updatedEmployee.getId(), updatedEmployee.getName(), updatedEmployee.getSalary());
         log.debug("Updating the Employee Whose id is {}", id);
         // Find the employee with the given ID and update their details
