@@ -4,13 +4,13 @@ package com.bridgelabz.employeepayrollapp.dto;
 // This class is used to transfer employee details from the client to the server.
 public class EmployeeRequestDTO {
     private String name;
-    private Long salary;
+    private double salary;
 
     // Constructor
     public EmployeeRequestDTO() {
     }
 
-    public EmployeeRequestDTO(String name, Long salary) {
+    public EmployeeRequestDTO(String name, double salary) {
         this.name = name;
         this.salary = salary;
     }
@@ -26,12 +26,12 @@ public class EmployeeRequestDTO {
     }
 
     // Getter for salary
-    public Long getSalary() {
+    public double getSalary() {
         return salary;
     }
 
     // Setter for salary
-    public void setSalary(Long salary) {
+    public void setSalary(double salary) {
         this.salary = salary;
     }
 
