@@ -1,5 +1,7 @@
 package com.bridgelabz.employeepayrollapp.service;
 
+import com.bridgelabz.employeepayrollapp.dto.EmployeeRequestDTO;
+import com.bridgelabz.employeepayrollapp.dto.EmployeeResponseDTO;
 import com.bridgelabz.employeepayrollapp.model.Employee;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,9 +30,7 @@ public class EmployeeService {
         log.debug("Searching for Employee By Id {}", id);
 
         // Find the employee with the given ID
-        Optional<Employee> employee = employeeList.stream()
-                .filter(emp -> emp.getId().equals(id))
-                .findFirst();
+        Optional<Employee> employee = employeeList.stream().filter(emp -> emp.getId().equals(id)).findFirst();
 
         // Return employee if found, otherwise return null
         return employee.orElse(null);
@@ -42,16 +42,17 @@ public class EmployeeService {
         return employeeList;
     }
 
-    public Employee updateEmployee(Long id, Employee updatedEmployee) {
+    public EmployeeResponseDTO updateEmployee(Long id, EmployeeRequestDTO updatedEmployee) {
+        Employee updatedEmployeeObject = new Employee(updatedEmployee.getId(), updatedEmployee.getName(), updatedEmployee.getSalary());
         log.debug("Updating the Employee Whose id is {}", id);
         // Find the employee with the given ID and update their details
         for (int i = 0; i < employeeList.size(); i++) {
             if (employeeList.get(i).getId().equals(id)) {
                 // Update employee details
-                employeeList.set(i, updatedEmployee);
+                employeeList.set(i, updatedEmployeeObject);
 
                 log.info("Successfully Employee Details Updated ......");
-                return updatedEmployee;
+                return new EmployeeResponseDTO(updatedEmployee.getName(), updatedEmployee.getSalary());
             }
         }
         log.warn("No Employee Found With Id {} please check again....", id);
@@ -60,7 +61,7 @@ public class EmployeeService {
     }
 
     public boolean deleteEmployee(Long id) {
-        log.info("Deleting the Employee Whose id is {}", id);
+        log.debug("Deleting the Employee Whose id is {}", id);
         // Remove employee with the given ID
         return employeeList.removeIf(emp -> emp.getId().equals(id));
     }
