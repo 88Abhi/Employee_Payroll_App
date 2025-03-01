@@ -1,61 +1,30 @@
 package com.bridgelabz.employeepayrollapp.controller;
 
 import com.bridgelabz.employeepayrollapp.dto.EmployeeRequestDTO;
-import com.bridgelabz.employeepayrollapp.dto.EmployeeResponseDTO;
 import com.bridgelabz.employeepayrollapp.model.Employee;
 import com.bridgelabz.employeepayrollapp.service.EmployeeService;
 import jakarta.validation.Valid;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@Slf4j
+import java.util.List;
+
+// Controller class to handle Employee REST API requests.
 @RestController
 @RequestMapping("/employeepayrollservice")
 public class EmployeeController {
-
-    private final EmployeeService employeeService;
-
-    // Injecting EmployeeService using @Autowired (Constructor Injection)
     @Autowired
-    public EmployeeController(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
+    private EmployeeService employeeService;
 
-    // GET Employee
-    @GetMapping("/getById/{id}")
-    public EmployeeResponseDTO getEmployee(@PathVariable Long id) {
-        log.info("Received GET request for Employee with ID: {}", id);
-
-        // Make a call to getEmployeeById and log the result
-        Employee employee = employeeService.getEmployeeById(id);
-
-        EmployeeResponseDTO employeeDetails = new EmployeeResponseDTO(employee.getName(), employee.getGender(), employee.getNote(), employee.getStartDate(), employee.getProfilePic(), employee.getDepartment());
-
-        log.info("Returning Employee: {}", employee);
-        return employeeDetails;
-    }
-
-    // POST - Add Employee
+    // API to save an employee to the database.
     @PostMapping("/create")
-    public EmployeeResponseDTO addEmployee(@Valid @RequestBody EmployeeRequestDTO employeeRequestDTO) {
-        log.debug("Creating a EEmployee  with id {} ", employeeRequestDTO.getId());
-        Employee employee = employeeService.addEmployee(employeeRequestDTO);
-        employee.setDepartment(employeeRequestDTO.getDepartment());
-        EmployeeResponseDTO employeeDetails = new EmployeeResponseDTO(employee.getName(), employee.getGender(), employee.getNote(), employee.getStartDate(), employee.getProfilePic(), employee.getDepartment());
-        log.info("Successfully employee created {}", employee);
-        return employeeDetails;
+    public Employee addEmployee(@Valid @RequestBody EmployeeRequestDTO employeeRequestDTO) {
+        return employeeService.addEmployee(employeeRequestDTO);
     }
 
-    // PUT - Update Employee
-    @PutMapping("/update/{id}")
-    public EmployeeResponseDTO updateEmployee(@PathVariable Long id, @Valid @RequestBody EmployeeRequestDTO employeeRequestDTO) {
-        return employeeService.updateEmployee(id, employeeRequestDTO);
-    }
-
-    // DELETE - Delete Employee
-    @DeleteMapping("/delete/{id}")
-    public boolean deleteEmployee(@PathVariable Long id) {
-        return employeeService.deleteEmployee(id);
+    // API to retrieve all employees.
+    @GetMapping("/getAll")
+    public List<Employee> getAllEmployees() {
+        return employeeService.getAllEmployees();
     }
 }
