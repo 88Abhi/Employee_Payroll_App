@@ -14,9 +14,10 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class EmployeeService {
+
     private final List<Employee> employeeList = new ArrayList<>();
 
-    public Employee addEmployee(EmployeeRequestDTO employeeData) {
+    public Employee addEmployee(@Valid EmployeeRequestDTO employeeData) {
         Employee employee = new Employee(employeeData.getId(), employeeData.getName(), employeeData.getSalary(), employeeData.getGender(), employeeData.getNote(), employeeData.getStartDate(), employeeData.getProfilePic());
         employee.setDepartment(employeeData.getDepartment());
         log.debug("Creating a Employee With Name :{}", employee.getName());
@@ -31,7 +32,9 @@ public class EmployeeService {
         log.debug("Searching for Employee By Id {}", id);
 
         // Find the employee with the given ID
-        Optional<Employee> employee = employeeList.stream().filter(emp -> emp.getId().equals(id)).findFirst();
+        Optional<Employee> employee = employeeList.stream()
+                .filter(emp -> emp.getId().equals(id))
+                .findFirst();
 
         // Return employee if found, otherwise return null
         return employee.orElse(null);

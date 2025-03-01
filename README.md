@@ -180,3 +180,13 @@ logging.file.name=logs/app.log
 - **Adding Remaining Properties to EmployeePayrollDTO and Model**
 - **Created Custom ResponseDTO to not sharing the internal model and confidential detail with the client**
 
+---
+
+## Section-5 UC-2
+
+- **Validation of EmployeeRequest Data on different Field like salary , startDate, gender etc.**
+- **@Valid Annotation and @Pattern for name Field Validation**
+- **Created Custom Exception Handler to display custom message to the user for invalid Date format**
+- **@JsonFormat annotation to format the date in the response**
+- **@PastOrPresent annotation to validate the date**
+- **@NotNull annotation to validate the date**
