@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/employeepayrollservice")
 public class EmployeeController {
+
     private final EmployeeService employeeService;
 
     // Injecting EmployeeService using @Autowired (Constructor Injection)
@@ -38,7 +39,7 @@ public class EmployeeController {
     // POST - Add Employee
     @PostMapping("/create")
     public EmployeeResponseDTO addEmployee(@Valid @RequestBody EmployeeRequestDTO employeeRequestDTO) {
-        log.debug("Creating a Employee  with id {} ", employeeRequestDTO.getId());
+        log.debug("Creating a EEmployee  with id {} ", employeeRequestDTO.getId());
         Employee employee = employeeService.addEmployee(employeeRequestDTO);
         employee.setDepartment(employeeRequestDTO.getDepartment());
         EmployeeResponseDTO employeeDetails = new EmployeeResponseDTO(employee.getName(), employee.getGender(), employee.getNote(), employee.getStartDate(), employee.getProfilePic(), employee.getDepartment());
