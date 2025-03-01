@@ -7,6 +7,7 @@ import com.bridgelabz.employeepayrollapp.service.EmployeeService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -36,7 +37,14 @@ public class EmployeeController {
         // Create a List to Store the Employee Data and Convert in Response DTO
         List<EmployeeResponseDTO> employeeResponseData = new ArrayList<>();
         for (Employee empData : employeeData) {
-            employeeResponseData.add(new EmployeeResponseDTO(empData.getName(), empData.getGender(), empData.getNote(), empData.getStartDate(), empData.getProfilePic(), empData.getDepartment()));
+            employeeResponseData.add(new EmployeeResponseDTO(
+                    empData.getName(),
+                    empData.getGender(),
+                    empData.getNote(),
+                    empData.getStartDate(),
+                    empData.getProfilePic(),
+                    empData.getDepartment()
+            ));
         }
         // returning the all employee
         return employeeResponseData;
@@ -78,4 +86,11 @@ public class EmployeeController {
     public boolean deleteEmployee(@PathVariable Long id) {
         return employeeService.deleteEmployee(id);
     }
+
+    @GetMapping("/employees/{department}")
+    public ResponseEntity<List<Employee>> getEmployeesByDepartment(@PathVariable String department) {
+        List<Employee> employees = employeeService.getEmployeesByDepartment(department);
+        return ResponseEntity.ok(employees);
+    }
+
 }

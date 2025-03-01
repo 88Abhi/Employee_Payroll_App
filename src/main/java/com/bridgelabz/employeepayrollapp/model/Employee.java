@@ -55,4 +55,5 @@ public class Employee {
         this.startDate = startDate;
         this.profilePic = profilePic;
     }
+
 }

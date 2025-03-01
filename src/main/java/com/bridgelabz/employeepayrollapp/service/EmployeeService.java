@@ -8,7 +8,10 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -41,6 +44,12 @@ public class EmployeeService {
         // Return all employees in the list
         return employeeRepository.findAll();
     }
+
+    // Created a method to get employees of specific department
+    public List<Employee> getEmployeesByDepartment(String department) {
+        return employeeRepository.findByDepartment(department);
+    }
+
 
     public EmployeeResponseDTO updateEmployee(Long id, @Valid EmployeeRequestDTO updatedEmployee) {
 

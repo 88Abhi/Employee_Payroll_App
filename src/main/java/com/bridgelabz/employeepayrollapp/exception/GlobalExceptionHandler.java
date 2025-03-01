@@ -1,6 +1,5 @@
 package com.bridgelabz.employeepayrollapp.exception;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
