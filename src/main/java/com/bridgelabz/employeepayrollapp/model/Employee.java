@@ -6,51 +6,53 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.util.List;
 
-// Represents the Employee entity mapped to the database table.
 @Data
+// Marks this class as a JPA entity
 @Entity
+// Specifies the table name in the database
 @Table(name = "employees")
 public class Employee {
-    // Primary key for Employee
+
+    // Primary Key
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     // Employee name
-    private String name;
-
-    // Employee salary
     private double salary;
 
+    @Column(nullable = false)
+    // Employee salary
+    private String name;
     // Employee gender
     private String gender;
 
-    // Employee note
+    //Employee note
     private String note;
 
-    // Employee start date stored in the database
-    @Column(name = "start_date")
+    @Column(nullable = false)
+    // Employee startDate
     private LocalDate startDate;
 
-    // Employee profile picture URL
+    // Employee profilePic
     private String profilePic;
 
-    // List of departments the employee belongs to
     @ElementCollection
+    @CollectionTable(name = "employee_department", joinColumns = @JoinColumn(name = "employee_id"))
+    @Column(name = "department_name")
+    // Employee department
     private List<String> department;
 
-    // Default constructor
+    // Default Constructor for mapper
     public Employee() {
     }
 
-    // Parameterized constructor to initialize the employee object
-    public Employee(String name, double salary, String gender, String note, LocalDate startDate, String profilePic, List<String> department) {
+    // Parameterized Constructor to initialize the Employee details
+    public Employee(String name, double salary, String gender, String note, LocalDate startDate, String profilePic) {
         this.name = name;
         this.salary = salary;
         this.gender = gender;
         this.note = note;
         this.startDate = startDate;
         this.profilePic = profilePic;
-        this.department = department;
     }
 }
