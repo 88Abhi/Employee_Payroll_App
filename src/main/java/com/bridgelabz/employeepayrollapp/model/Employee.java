@@ -6,48 +6,51 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.util.List;
 
+// Represents the Employee entity mapped to the database table.
 @Data
-// Marks this class as a JPA entity
 @Entity
-// Specifies the table name in the database
 @Table(name = "employees")
 public class Employee {
-
-    // Primary Key
+    // Primary key for Employee
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     // Employee name
-    private double salary;
-    // Employee salary
     private String name;
+
+    // Employee salary
+    private double salary;
+
     // Employee gender
     private String gender;
 
-    //Employee note
+    // Employee note
     private String note;
 
-    // Employee startDate
+    // Employee start date stored in the database
+    @Column(name = "start_date")
     private LocalDate startDate;
 
-    // Employee profilePic
+    // Employee profile picture URL
     private String profilePic;
 
-    // Employee department
+    // List of departments the employee belongs to
+    @ElementCollection
     private List<String> department;
 
-    // Default Constructor for mapper
+    // Default constructor
     public Employee() {
     }
 
-    // Parameterized Constructor to initialize the Employee details
-    public Employee(Long id, String name, double salary, String gender, String note, LocalDate startDate, String profilePic) {
-        this.id = id;
+    // Parameterized constructor to initialize the employee object
+    public Employee(String name, double salary, String gender, String note, LocalDate startDate, String profilePic, List<String> department) {
         this.name = name;
         this.salary = salary;
         this.gender = gender;
         this.note = note;
         this.startDate = startDate;
         this.profilePic = profilePic;
+        this.department = department;
     }
-
 }
